@@ -1,0 +1,105 @@
+DELTA
+SVNENDREP
+DELTA
+SVNENDREP
+DELTA
+SVNENDREP
+DELTA
+SVNENDREP
+id: 6-1.0.r1/68
+type: file
+count: 0
+text: 1 0 4 0 d41d8cd98f00b204e9800998ecf8427e da39a3ee5e6b4b0d3255bfef95601890afd80709 0-0/_9
+cpath: /foo/foo1.txt
+copyroot: 0 /
+
+id: 8-1.0.r1/235
+type: file
+count: 0
+text: 1 17 4 0 d41d8cd98f00b204e9800998ecf8427e da39a3ee5e6b4b0d3255bfef95601890afd80709 0-0/_a
+cpath: /foo/foo2.txt
+copyroot: 0 /
+
+PLAIN
+K 8
+foo1.txt
+V 16
+file 6-1.0.r1/68
+K 8
+foo2.txt
+V 17
+file 8-1.0.r1/235
+END
+ENDREP
+id: 5-1.0.r1/492
+type: dir
+count: 0
+text: 1 404 75 75 e28acb160b43213d437ee482623a3fad
+cpath: /foo
+copyroot: 0 /
+
+id: 2-1.0.r1/606
+type: file
+count: 0
+text: 1 34 4 0 d41d8cd98f00b204e9800998ecf8427e da39a3ee5e6b4b0d3255bfef95601890afd80709 0-0/_b
+cpath: /bar/bar1.txt
+copyroot: 0 /
+
+id: 4-1.0.r1/775
+type: file
+count: 0
+text: 1 51 4 0 d41d8cd98f00b204e9800998ecf8427e da39a3ee5e6b4b0d3255bfef95601890afd80709 0-0/_c
+cpath: /bar/bar2.txt
+copyroot: 0 /
+
+PLAIN
+K 8
+bar1.txt
+V 17
+file 2-1.0.r1/606
+K 8
+bar2.txt
+V 17
+file 4-1.0.r1/775
+END
+ENDREP
+id: 0-1.0.r1/1033
+type: dir
+count: 0
+text: 1 944 76 76 1ef4cac7563efe5569e334b57d232f47
+cpath: /bar
+copyroot: 0 /
+
+PLAIN
+K 3
+bar
+V 17
+dir 0-1.0.r1/1033
+K 3
+foo
+V 16
+dir 5-1.0.r1/492
+END
+ENDREP
+id: 0.0.r1/1226
+type: dir
+pred: 0.0.r0/17
+count: 1
+text: 1 1148 65 65 2181203897a67e1c0e90bdd495f23718
+cpath: /
+copyroot: 0 /
+
+_5.0.t0-0 add-dir false false /foo
+
+_0.0.t0-0 add-dir false false /bar
+
+_6.0.t0-0 add-file true false /foo/foo1.txt
+
+_8.0.t0-0 add-file true false /foo/foo2.txt
+
+_2.0.t0-0 add-file true false /bar/bar1.txt
+
+_4.0.t0-0 add-file true false /bar/bar2.txt
+
+
+1226 1353
