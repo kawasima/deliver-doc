@@ -1,5 +1,6 @@
 (ns deliver-doc.core
-  (:use [subversion-clj.core]
+  (:use [environ.core]
+        [subversion-clj.core]
         [nio2.dir-seq]
         [nio2.files]
         [clj-time.coerce :only [from-date]]
@@ -10,8 +11,10 @@
   (:import [java.nio.file Files]
            [java.nio.file.attribute FileAttribute]))
 
+(def workspace (env :svn-workspace))
+(def viewspace (env :view-workspace))
 (def fmt (f/formatter "yyyyMMdd"))
-(def repo (repo-for (.. (io2/path "dev-resources/repos") toUri toString)))
+(def repo (repo-for (.. (io2/path (env :svn-repo) toUri toString)))
 
 (defn calc-commit-times [path]
   (loop [updated-at-same-day 0
@@ -28,7 +31,7 @@
 
 (defn link-name [path]
   (let [filename (.. path getFileName toString)]
-    (if (re-matches #"\d{8}_\d{2}\.[^\.]+$" filename)
+    (if (re-find #"\d{8}_\d{2}\.[^\.]+$" filename)
       filename
       (let [[basename extension] (string/split filename #"\.(?=[^\.]+$)")]
         (str basename "_" (calc-commit-times path) "." extension)))))
@@ -39,11 +42,13 @@
     (filter #(not (directory? %)))))
 
 (defn -main [& args]
-  (doseq [src-path (svn-path-seq "target/repos")]
-    (let [relative-path (.. (io2/path "target/repos") (relativize src-path))
-          dir  (.. relative-path getParent toFile getPath)
-          file (link-name relative-path)
-          link-path (io2/path "target/repos-ro" dir file)]
-      (create-directories! (parent link-path))
-      (Files/createLink link-path src-path))))
+  (doseq [src-path (svn-path-seq workspace)]
+    (try
+      (let [relative-path (.. (io2/path workspace) (relativize src-path))
+            dir  (.. relative-path getParent toFile getPath)
+            file (link-name relative-path)
+            link-path (io2/path viewspace dir file)]
+        (create-directories! (parent link-path))
+        (Files/createLink link-path src-path))
+      (catch Exception ex (println "Skip " src-path)))))
 
