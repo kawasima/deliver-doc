@@ -4,4 +4,8 @@
                  [subversion-clj "0.5.0"]
                  [info.hoetzel/clj-nio2 "0.1.1"]
                  [clj-time "0.7.0"]]
-  :main deliver-doc.core)
+  :plugins [[lein-environ "0.5.0"]]
+  :main deliver-doc.core
+  :profiles {:dev {:env {:svn-repo "dev-resources/repos"
+                         :svn-workspace "target/repos"
+                         :view-workspace "target/repos-ro"}}})
